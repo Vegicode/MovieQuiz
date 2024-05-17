@@ -7,7 +7,7 @@ final class MovieQuizViewController: UIViewController {
         
         textLabel.font = UIFont(name: "YSDisplay-Medium", size: 23)
         
-        counterLabel.font = UIFont(name: "YSDisplay-Bold", size: 20)
+        counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         
         questionLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         
@@ -32,14 +32,12 @@ final class MovieQuizViewController: UIViewController {
       let questionNumber: String
     }
     
-    // для состояния "Вопрос показан"
     struct QuizStepViewModel {
       let image: UIImage
       let question: String
       let questionNumber: String
     }
 
-    // для состояния "Результат квиза"
     struct QuizResultsViewModel {
       let title: String
       let text: String
@@ -47,12 +45,11 @@ final class MovieQuizViewController: UIViewController {
     }
     
     struct QuizQuestion {
-      // строка с названием фильма,
-      // совпадает с названием картинки афиши фильма в Assets
+     
       let image: String
-      // строка с вопросом о рейтинге фильма
+      
       let text: String
-      // булевое значение (true, false), правильный ответ на вопрос
+     
       let correctAnswer: Bool
     }
     
@@ -99,6 +96,15 @@ final class MovieQuizViewController: UIViewController {
                 correctAnswer: false)
         ]
     
+    
+  
+       private var currentQuestionIndex = 0
+       
+       
+       private var correctAnswers = 0
+       
+    
+    
     @IBOutlet private weak var imageView: UIImageView!
     
     @IBOutlet private weak var textLabel: UILabel!
@@ -131,24 +137,16 @@ final class MovieQuizViewController: UIViewController {
         
     }
     
-    // переменная с индексом текущего вопроса, начальное значение 0
-    // (по этому индексу будем искать вопрос в массиве, где индекс первого элемента 0, а не 1)
-    private var currentQuestionIndex = 0
-    
-    // переменная со счётчиком правильных ответов, начальное значение закономерно 0
-    private var correctAnswers = 0
-    
-    // приватный метод конвертации, который принимает моковый вопрос и возвращает вью модель для главного экрана
    
     
-    // приватный метод вывода на экран вопроса, который принимает на вход вью модель вопроса и ничего не возвращает
+   
     private func show(quiz step: QuizStepViewModel) {
       imageView.image = step.image
       textLabel.text = step.question
       counterLabel.text = step.questionNumber
       
     }
-    // приватный метод конвертации, который принимает моковый вопрос и возвращает вью модель для главного экрана
+
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel( // 1
             image: UIImage(named: model.image) ?? UIImage(), // 2
@@ -156,8 +154,6 @@ final class MovieQuizViewController: UIViewController {
             questionNumber: "\(currentQuestionIndex + 1)/\(questions.count)") // 4
         return questionStep
     }
-    // приватный метод, который меняет цвет рамки
-    // принимает на вход булевое значение и ничего не возвращает
     private func showAnswerResult(isCorrect: Bool) {
         
         if isCorrect {
@@ -166,17 +162,19 @@ final class MovieQuizViewController: UIViewController {
         
         imageView.layer.masksToBounds = true // 1
         imageView.layer.borderWidth = 8 // 2
-        imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor // 3// метод красит рамку
+        imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor 
+        imageView.layer.cornerRadius = 20
         
-        // запускаем задачу через 1 секунду c помощью диспетчера задач
+        
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-           // код, который мы хотим вызвать через 1 секунду
+        
            self.showNextQuestionOrResults()
+            self.imageView.layer.borderColor = .none
+    
         }
     }
     
-    // приватный метод, который содержит логику перехода в один из сценариев
-    // метод ничего не принимает и ничего не возвращает
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questions.count - 1 { // 1
             let text = "Ваш результат: \(correctAnswers)/10" // 1
@@ -194,14 +192,11 @@ final class MovieQuizViewController: UIViewController {
             
             
             show(quiz: viewModel)
-            // идём в состояние "Вопрос показан"
             
         }
         
     }
     
-    // приватный метод для показа результатов раунда квиза
-    // принимает вью модель QuizResultsViewModel и ничего не возвращает
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
                 title: result.title,
