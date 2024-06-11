@@ -12,7 +12,7 @@
         <!--Movie Quiz View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MovieQuizViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MovieQuizViewController" customModule="MovieQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,7 +67,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="noButtonStyle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bfA-uK-cou"/>
+                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="74q-7q-4Y4"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wa-eL-rjD" userLabel="Yes Button">
@@ -84,8 +84,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="yesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="N6o-30-rs5"/>
-                                                    <action selector="yesButtonStyle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lWL-1K-RcX"/>
+                                                    <action selector="yesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IBY-Bp-GmC"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -106,12 +105,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="counterLabel" destination="AVj-Un-Dqz" id="IVW-CH-sj0"/>
-                        <outlet property="imageView" destination="3wd-ip-Aqg" id="c5K-PQ-dJ0"/>
-                        <outlet property="noButtonStyle" destination="LsF-7i-83D" id="IU1-uA-zO1"/>
-                        <outlet property="questionLabel" destination="hy7-hm-xoE" id="z7C-gZ-uHc"/>
-                        <outlet property="textLabel" destination="xjZ-ef-aBG" id="6py-Cf-AVm"/>
-                        <outlet property="yesButtonStyle" destination="7wa-eL-rjD" id="L7f-jQ-zh5"/>
+                        <outlet property="counterLabel" destination="AVj-Un-Dqz" id="skV-PB-G3M"/>
+                        <outlet property="imageView" destination="3wd-ip-Aqg" id="tDe-Y7-dON"/>
+                        <outlet property="noButtonStyle" destination="LsF-7i-83D" id="yWL-27-EV2"/>
+                        <outlet property="questionLabel" destination="hy7-hm-xoE" id="cka-St-79g"/>
+                        <outlet property="textLabel" destination="xjZ-ef-aBG" id="Ip9-NM-emk"/>
+                        <outlet property="yesButtonStyle" destination="7wa-eL-rjD" id="HmU-pz-bK1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -7,12 +7,10 @@
 
 import Foundation
 
-weak var delegate: QuestionFactoryDelegate?
-
 protocol QuestionFactoryDelegate: AnyObject {
-    func didRecevieNextQuestion(question: QuizQuestion?)
+    func didReceiveNextQuestion(question: QuizQuestion?)
+    
 }
-
 // MARK: - QuestionFactoryDelegate
 
 

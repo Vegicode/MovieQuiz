@@ -5,7 +5,7 @@
 //  Created by Mac on 21.05.2024.
 //
 
-import Foundation
+import UIKit
 
 struct QuizResultsViewModel {
   let title: String
