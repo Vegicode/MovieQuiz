@@ -3,21 +3,42 @@ import UIKit
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterProtocol {
     
     
-    func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else{
-            return
+  
+    
+    private var currentQuestionIndex = 0
+       private var correctAnswers = 0
+       private let questionsAmount: Int = 10
+       private var questionFactory: QuestionFactoryProtocol?
+       private var currentQuestion: QuizQuestion?
+       private var alertDelegate: MovieQuizViewControllerDelelegate?
+       private var statisticService: StatisticServiceProtocol?
+       //@IBOutlet private weak var imageView: UIImageView!
+       @IBOutlet private weak var imageView: UIImageView!
+       
+       // @IBOutlet private weak var textLabel: UILabel!
+       @IBOutlet private weak var textLabel: UILabel!
+       
+       
+       //@IBOutlet private weak var counterLabel: UILabel!
+       @IBOutlet private weak var counterLabel: UILabel!
+       
+       //@IBOutlet private weak var questionLabel: UILabel!
+       
+       @IBOutlet private weak var questionLabel: UILabel!
+       
+       @IBOutlet private weak var noButtonStyle: UIButton!
+       
+       @IBOutlet private weak var yesButtonStyle: UIButton!
+       
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+            return .lightContent
         }
-        currentQuestion = question
-        let viewModel = convert(model: question)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
-        }
-    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        statisticService = StatisticService()
         
         let questionFactory = QuestionFactory()
         
@@ -58,47 +79,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    private var currentQuestionIndex = 0
-    
-    
-    private var correctAnswers = 0
-    
-    private let questionsAmount: Int = 10
-    
-    private var questionFactory: QuestionFactoryProtocol?
-    
-    private var currentQuestion: QuizQuestion?
-    
-    private var alertDelegate: MovieQuizViewControllerDelelegate?
-    
-    private var staticService: StatisticServiceProtocol?
-    
-    
-    //@IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var imageView: UIImageView!
-    
-    // @IBOutlet private weak var textLabel: UILabel!
-    @IBOutlet private weak var textLabel: UILabel!
-    
-    
-    //@IBOutlet private weak var counterLabel: UILabel!
-    @IBOutlet private weak var counterLabel: UILabel!
-    
-    //@IBOutlet private weak var questionLabel: UILabel!
-    
-    @IBOutlet private weak var questionLabel: UILabel!
-    
-    @IBOutlet private weak var noButtonStyle: UIButton!
-    
-    @IBOutlet private weak var yesButtonStyle: UIButton!
-    
+   
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
@@ -122,7 +103,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
     
     
-    
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+          guard let question = question else{
+              return
+          }
+          currentQuestion = question
+          let viewModel = convert(model: question)
+          
+          DispatchQueue.main.async { [weak self] in
+              self?.show(quiz: viewModel)
+          }
+      }
     
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
@@ -198,14 +189,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
      func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
-            staticService?.store(correct: correctAnswers, total: questionsAmount)// 1
-            let bestGame = staticService?.bestGame
+            statisticService?.store(correct: correctAnswers, total: questionsAmount)// 1
+            let bestGame = statisticService?.bestGame
             let text =
                       """
                       Ваш результат: \(correctAnswers)/\(questionsAmount)
-                      Количество сыгранных квизов: \(staticService?.gameCount ?? 0)
-                      Рекорд: \(bestGame?.correct ?? 0)/\(questionsAmount) (\(String(describing: bestGame?.date.dateTimeString ?? ""))%"
-                      Средняя точность: \(String(format: "%.2f", staticService?.totalAccuracy ?? ""))%"
+                      Количество сыгранных квизов: \(statisticService?.gamesCount ?? 0)
+                      Рекорд: \(statisticService?.bestGame.correct ?? 0))/\(questionsAmount) (\(statisticService?.bestGame.date.dateTimeString ?? ""))%"
+                      Средняя точность: \(String(format: "%.2f", statisticService?.totalAccuracy ?? ""))%"
                       """
             let alertModel = AlertModel( // 2
                 title: "Этот раунд окончен!",

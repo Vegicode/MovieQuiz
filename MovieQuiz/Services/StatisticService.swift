@@ -7,30 +7,29 @@
 
 import UIKit
 
+
 final class StatisticService: StatisticServiceProtocol {
+   
     
-    init(correctAnswers: Int) {
-        self.correctAnswers = correctAnswers
-    }
-    
-    private let storage = UserDefaults()
+ 
+    private enum Keys: String{
+          case correct
+          case bestGame
+          case gamesCount
+          case date
+          case total
+      }
+      
+
+    private var correctAnswers: Int = 0
+    private let storage: UserDefaults = .standard
 
     var totalAccuracy: Double {
-        let total = storage.integer(forKey: Keys.total.rawValue)
-        let correct = storage.integer(forKey: Keys.correct.rawValue)
-        return Double(100) * Double(correct) / Double(total)
-        }
+        ((Double(total) / Double(gamesCount)) * 10)
         
-
+        
+        }
     
-    
-    private enum Keys: String{
-        case correct
-        case bestGame
-        case gamesCount
-        case date
-        case total
-    }
     
     var correct: Int{
         get{
@@ -41,18 +40,9 @@ final class StatisticService: StatisticServiceProtocol {
         }
     }
     
-    var total: Int{
-        get{
-            storage.integer(forKey: Keys.total.rawValue)
-        }
-        set{
-            storage.set(newValue, forKey: Keys.total.rawValue)
-        }
-    }
-    
-    
 
-    var gameCount: Int {
+        
+    var gamesCount: Int {
         
         get {
             
@@ -69,13 +59,29 @@ final class StatisticService: StatisticServiceProtocol {
     }
     
     
+  
+
+    var total: Int{
+        get{
+            storage.integer(forKey: Keys.total.rawValue)
+        }
+        set{
+            storage.set(newValue, forKey: Keys.total.rawValue)
+        }
+    }
+    
+    
+
+
+    
+    
     
     var bestGame: GameResult {
         get {
             let correct = storage.integer(forKey: Keys.correct.rawValue)
             let total = storage.integer(forKey: Keys.total.rawValue)
-            let date = storage.integer(forKey: Keys.date.rawValue)
-            return GameResult (correct: correct, total: total, date: Date())
+            let date = storage.object(forKey: Keys.date.rawValue) as? Date ?? Date()
+            return GameResult (correct: correct, total: total, date: date)
         }
         
         set{
@@ -84,12 +90,12 @@ final class StatisticService: StatisticServiceProtocol {
             storage.set(newValue.date, forKey: Keys.date.rawValue)
         }
     }
-    private var correctAnswers: Int = 0
+  
     
     func store(correct count: Int, total amount: Int) {
         correct = count
         total += count
-        gameCount += 1
+        gamesCount += 1
         
         
         let newResult = GameResult(correct: count, total: amount, date: Date())
