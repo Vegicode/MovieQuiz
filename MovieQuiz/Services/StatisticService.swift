@@ -93,17 +93,24 @@ final class StatisticService: StatisticServiceProtocol {
   
     
     func store(correct count: Int, total amount: Int) {
-        correct = count
-        total += count
+       
+        
         gamesCount += 1
         
-        
         let newResult = GameResult(correct: count, total: amount, date: Date())
+        
         if newResult.isBetterThan(bestGame) {
             bestGame = newResult
         }
+        
+        // Получаем словарь всех значений
+       
+
+        // Получаем все ключи словаря, затем в цикле удаляем их
+        
+        
        
     }
-    
+  
 
 }

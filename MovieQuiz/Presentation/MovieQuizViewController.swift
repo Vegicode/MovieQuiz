@@ -30,6 +30,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
        
        @IBOutlet private weak var yesButtonStyle: UIButton!
        
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
             return .lightContent
         }
@@ -101,6 +103,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
         
     }
+    
+
     
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -195,7 +199,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
                       """
                       Ваш результат: \(correctAnswers)/\(questionsAmount)
                       Количество сыгранных квизов: \(statisticService?.gamesCount ?? 0)
-                      Рекорд: \(statisticService?.bestGame.correct ?? 0))/\(questionsAmount) (\(statisticService?.bestGame.date.dateTimeString ?? ""))%"
+                      Рекорд: \(bestGame?.correct ?? 0)/\(questionsAmount) (\(bestGame?.date.dateTimeString ?? ""))%"
                       Средняя точность: \(String(format: "%.2f", statisticService?.totalAccuracy ?? ""))%"
                       """
             let alertModel = AlertModel( // 2
@@ -203,7 +207,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
                 message: text,
                 buttonText: "Сыграть ещё раз",
                 completion: {
-                    self.currentQuestionIndex = 1
+                    self.currentQuestionIndex = 0
                     self.correctAnswers = 0
                     self.questionFactory?.requestNextQuestion()
                 })
@@ -215,9 +219,28 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             questionFactory?.requestNextQuestion()
             
         }
+         
+        
         
     }
+    private func showLoadingIndicator(){
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
     
+    private func showNetworkError(message: String) {
+        //hideLoadingIndicator()
+        
+        let model = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") {[weak self] in
+            guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            self.questionFactory?.requestNextQuestion()
+        }
+        
+    }
         
     
     
