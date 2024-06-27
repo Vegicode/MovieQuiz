@@ -73,6 +73,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wa-eL-rjD" userLabel="Yes Button">
                                                 <rect key="frame" x="205" y="0.0" width="185" height="60"/>
                                                 <color key="backgroundColor" name="YP White"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Yes"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Да">
@@ -94,16 +95,19 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4fQ-HO-7AB">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4fQ-HO-7AB">
                                 <rect key="frame" x="20" y="456" width="390" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
+                            <constraint firstItem="4fQ-HO-7AB" firstAttribute="width" secondItem="VsK-Fo-QjE" secondAttribute="width" id="1O7-x4-DBd"/>
+                            <constraint firstItem="4fQ-HO-7AB" firstAttribute="leading" secondItem="VsK-Fo-QjE" secondAttribute="leading" id="4Up-zL-eID"/>
                             <constraint firstItem="VsK-Fo-QjE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Dhk-cd-llb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VsK-Fo-QjE" secondAttribute="bottom" id="Fh0-we-FLN"/>
+                            <constraint firstItem="4fQ-HO-7AB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="V2T-rb-4Pl"/>
+                            <constraint firstItem="4fQ-HO-7AB" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.0238379" id="Y7t-UB-QnL"/>
                             <constraint firstItem="VsK-Fo-QjE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="aWb-TT-uHx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VsK-Fo-QjE" secondAttribute="trailing" constant="20" id="bhm-vt-rho"/>
                         </constraints>
