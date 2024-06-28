@@ -2,9 +2,6 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, AlertPresenterProtocol {
     
-    
-  
-    
     private var currentQuestionIndex = 0
        private var correctAnswers = 0
        private let questionsAmount: Int = 10

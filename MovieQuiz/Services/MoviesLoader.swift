@@ -30,7 +30,7 @@ struct MoviesLoader: MoviesLoading {
             switch result {
             case .success(let data):
                 do{
-                    let mostPopularMovie = try JSONDecoder().decode(MostPopularMovies.self, from: data)
+                    let mostPopularMovies = try JSONDecoder().decode(MostPopularMovies.self, from: data)
                 } catch {
                     handler(.failure(error))
                 }
