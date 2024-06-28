@@ -7,9 +7,8 @@
 
 import UIKit
 
-
 class AlertPresenter: MovieQuizViewControllerDelelegate  {
- 
+    
     weak var alertController: AlertPresenterProtocol?
        
        func show(alertModel: AlertModel) {
