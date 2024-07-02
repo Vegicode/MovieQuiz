@@ -29,7 +29,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
        
        @IBOutlet private weak var yesButtonStyle: UIButton!
        
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
             return .lightContent
@@ -86,8 +86,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         noButtonStyle.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
         yesButtonStyle.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
         imageView.layer.cornerRadius = 20
-        
-        
+        imageView.contentMode = .scaleAspectFill
+        activityIndicator.color = UIColor.lightGray
         
         
       
