@@ -103,12 +103,6 @@ final class StatisticService: StatisticServiceProtocol {
             bestGame = newResult
         }
         
-        // Получаем словарь всех значений
-       
-
-        // Получаем все ключи словаря, затем в цикле удаляем их
-        
-        
        
     }
   
