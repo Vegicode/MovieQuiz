@@ -30,12 +30,7 @@ final class MovieQuizViewController: UIViewController,MovieQuizViewControllerPro
         
         styles()
         presenter = MovieQuizPresenter(viewController: self)
-
-        
         showLoadingIndicator()
-        
-        
-        
       
     }
 
@@ -97,28 +92,18 @@ final class MovieQuizViewController: UIViewController,MovieQuizViewControllerPro
     }
     
     func showNetworkError(message: String) {
-        hideLoadingIndicator()
-        
-        let alert = UIAlertController(
-            title: "Ошибка!",
-            message: message,
-            preferredStyle: .alert)
-        let action = UIAlertAction(title: "Попробовать еще раз",
-                                   style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            
-            self.presenter.restartGame()
-            
-        }
-        
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-   
-    
-    
+           hideLoadingIndicator()
+           
+           let model = AlertModel(title: "Ошибка",
+                                  message: message,
+                                  buttonText: "Попробовать еще раз") { [weak self] in
+               guard let self = self else { return }
+               self.presenter.restartGame()
+           }
+           alertDelegate?.show(alertModel: model)
+           
+       }
+
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
            

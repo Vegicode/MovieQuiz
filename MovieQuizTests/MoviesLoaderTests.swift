@@ -9,8 +9,12 @@ import XCTest
 @testable import MovieQuiz
 
 class MoivesLoaderTests: XCTestCase {
+    
+    
     func testSuccessLoading() throws {
-        let loader = MoviesLoader()
+        
+        let stubNetworkClient = StubNetworkClient(emulateError: true)
+        let loader = MoviesLoader(networkClient: stubNetworkClient)
         
         let expectation = expectation(description: "Loading expectation")
         
@@ -18,33 +22,37 @@ class MoivesLoaderTests: XCTestCase {
             
             switch result {
             case .success(let movies):
+                XCTAssertEqual(movies.items.count, 2)
                 expectation.fulfill()
             case .failure(_):
                 XCTFail("Unexpected failure")
                 
             }
             
-            self.waitForExpectations(timeout: 1)
         }
-        
+          waitForExpectations(timeout: 1)
+
     }
         func testFailureLoading() throws {
             
-            //let stubNetworkClient = StubNetworkClient(emulateError: true)
-            let loader = MoviesLoader()
+            let stubNetworkClient = StubNetworkClient(emulateError: true)
+            let loader = MoviesLoader(networkClient: stubNetworkClient)
             
             let expectation = expectation(description: "Loading expectation")
             
             loader.loadMovies { result in
                 
                 switch result {
-                case .success(let movies):
+                case .failure(let error):
+                    XCTAssertNotNil(error)
                     expectation.fulfill()
-                case .failure(_):
-                    XCTFail("Unexpected failure")
+                case .success(_):
+                    XCTFail("Unexpected success")
                 }
-                self.waitForExpectations(timeout: 1)
             }
+
+            waitForExpectations(timeout: 1)
+
         }
         
     

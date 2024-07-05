@@ -6,7 +6,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     var questionFactory: QuestionFactoryProtocol?
     private let statisticService: StatisticServiceProtocol!
     private weak var viewController: MovieQuizViewControllerProtocol?
-    
+    private var alertDelegate: AlertPresenterProtocol?
     private var currentQuestion: QuizQuestion?
     private let questionsAmount: Int = 10
     private var currentQuestionIndex: Int = 0
@@ -18,7 +18,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         
         statisticService = StatisticService()
         
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(networkClient: NetworkClient()), delegate: self)
         questionFactory?.loadData()
         viewController.showLoadingIndicator()
     }
@@ -105,11 +105,10 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
                 title: "Этот раунд окончен!",
                 text: text,
                 buttonText: "Сыграть ещё раз")
-            viewController?.show(quiz: alertModel)
+                 viewController?.show(quiz: alertModel)
         }
         else {
             self.switchToNextQuestion()
-           
             questionFactory?.requestNextQuestion()
         }
     }

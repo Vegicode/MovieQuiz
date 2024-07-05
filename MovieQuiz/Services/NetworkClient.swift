@@ -12,7 +12,7 @@ protocol NetworkRouting {
 }
 
 
-struct NetworkClient {
+struct NetworkClient: NetworkRouting {
     
     
     private enum NetworkError: Error {

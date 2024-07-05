@@ -35,6 +35,7 @@
 		50F469FC2C352B14005F8DC2 /* MovieQuizPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F469FB2C352B14005F8DC2 /* MovieQuizPresenter.swift */; };
 		50F46A0A2C36962F005F8DC2 /* MovieQuizViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46A092C36962E005F8DC2 /* MovieQuizViewControllerProtocol.swift */; };
 		50F46A0C2C36A47C005F8DC2 /* MovieQuizPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46A0B2C36A47C005F8DC2 /* MovieQuizPresenterTests.swift */; };
+		50F46A102C37DEF7005F8DC2 /* StubNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F46A0F2C37DEF7005F8DC2 /* StubNetworkClient.swift */; };
 		AD1ABABB2831907F00B3E448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD1ABABA2831907F00B3E448 /* Assets.xcassets */; };
 		AD1ABABE2831907F00B3E448 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD1ABABC2831907F00B3E448 /* LaunchScreen.storyboard */; };
 		AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */; };
@@ -88,6 +89,7 @@
 		50F469FB2C352B14005F8DC2 /* MovieQuizPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizPresenter.swift; sourceTree = "<group>"; };
 		50F46A092C36962E005F8DC2 /* MovieQuizViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizViewControllerProtocol.swift; sourceTree = "<group>"; };
 		50F46A0B2C36A47C005F8DC2 /* MovieQuizPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizPresenterTests.swift; sourceTree = "<group>"; };
+		50F46A0F2C37DEF7005F8DC2 /* StubNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubNetworkClient.swift; sourceTree = "<group>"; };
 		AD1ABAAE2831907B00B3E448 /* MovieQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD1ABAB12831907B00B3E448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD1ABAB32831907B00B3E448 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				50D0AFC32C05C17E005F4770 /* AlertPresenter.swift */,
 				501A8B652C16D4ED0091C60A /* AlertPresenterProtocol.swift */,
 				50F469FB2C352B14005F8DC2 /* MovieQuizPresenter.swift */,
+				50F46A0F2C37DEF7005F8DC2 /* StubNetworkClient.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				50F469F92C3420F7005F8DC2 /* SceneDelegate.swift in Sources */,
 				50D0AFC42C05C17E005F4770 /* AlertPresenter.swift in Sources */,
 				508E408F2BFCC3BF0094F9CA /* QuestionFactory.swift in Sources */,
+				50F46A102C37DEF7005F8DC2 /* StubNetworkClient.swift in Sources */,
 				50F469FC2C352B14005F8DC2 /* MovieQuizPresenter.swift in Sources */,
 				501A8B6A2C16ED4E0091C60A /* MovieQuizViewControllerDelegate.swift in Sources */,
 				501A8B662C16D4ED0091C60A /* AlertPresenterProtocol.swift in Sources */,
