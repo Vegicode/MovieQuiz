@@ -7,23 +7,26 @@
 
 import UIKit
 
-class AlertPresenter: MovieQuizViewControllerDelelegate  {
+class AlertPresenter: AlertPresenterProtocol{
     
-    weak var alertController: AlertPresenterProtocol?
+    weak var delegate: AlertPresenterDelegate?
        
-       func show(alertModel: AlertModel) {
+       func alertPresent(alertModel: AlertModel) {
            let alert = UIAlertController(
-                   title: alertModel.title,
-                   message: alertModel.message,
-                   preferredStyle: .alert)
+               title: alertModel.title,
+               message: alertModel.message,
+               preferredStyle: .alert)
            
-           let action = UIAlertAction(title: alertModel.buttonText, style: .default) { _ in
-               alertModel.completion()
-           }
+           let action = UIAlertAction(
+               title: alertModel.buttonText,
+               style: .default) { _ in
+                   self.delegate?.startNewGame()
+               }
            
            alert.addAction(action)
-           alertController?.present(alert, animated: true)
-          
+           DispatchQueue.main.async {
+               self.delegate?.sendAlert(alert: alert)
+           }
        }
     
 }

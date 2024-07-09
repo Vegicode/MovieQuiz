@@ -7,12 +7,12 @@
 
 import UIKit
 
-struct GameResult {
+struct GameResult: Codable {
     let correct: Int
     let total: Int
     let date: Date
     
-    func isBetterThan(_ another: GameResult) -> Bool {
-        correct > another.correct
+    func isBetterThan(_ currentGame: GameResult) -> Bool {
+        self.correct > currentGame.correct
     }
 }

@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol AlertPresenterProtocol: UIViewController {
-    func showNextQuestionOrResults()
+protocol AlertPresenterProtocol {
+    func alertPresent(alertModel: AlertModel)
 }

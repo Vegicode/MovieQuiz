@@ -9,102 +9,75 @@ import UIKit
 
 
 final class StatisticService: StatisticServiceProtocol {
-   
+    private let userDefaults: UserDefaults = .standard
     
- 
-    private enum Keys: String{
-          case correct
-          case bestGame
-          case gamesCount
-          case date
-          case total
-      }
-      
-
-    private var correctAnswers: Int = 0
-    private let storage: UserDefaults = .standard
-
-    var totalAccuracy: Double {
-        ((Double(total) / Double(gamesCount)) * 10)
-        
-        
-        }
-    
-    
-    var correct: Int{
-        get{
-            storage.integer(forKey: Keys.correct.rawValue)
-        }
-        set{
-            storage.set(newValue, forKey: Keys.correct.rawValue)
-        }
+    private enum Keys: String {
+        case correct
+        case bestGame
+        case gamesCount
+        case total
     }
     
-
-        
-    var gamesCount: Int {
-        
+    private var correct: Int {
         get {
-            
-            storage.integer(forKey: Keys.gamesCount.rawValue)
-            
+            userDefaults.integer(forKey: Keys.correct.rawValue)
         }
         
-        set{
-            
-            storage.set(newValue, forKey: Keys.gamesCount.rawValue)
-            
-        }
-
-    }
-    
-    
-  
-
-    var total: Int{
-        get{
-            storage.integer(forKey: Keys.total.rawValue)
-        }
-        set{
-            storage.set(newValue, forKey: Keys.total.rawValue)
+        set {
+            userDefaults.set(newValue, forKey: Keys.correct.rawValue)
         }
     }
     
-    
-
-
-    
-    
-    
-    var bestGame: GameResult {
+    internal var gamesCount: Int {
         get {
-            let correct = storage.integer(forKey: Keys.correct.rawValue)
-            let total = storage.integer(forKey: Keys.total.rawValue)
-            let date = storage.object(forKey: Keys.date.rawValue) as? Date ?? Date()
-            return GameResult (correct: correct, total: total, date: date)
+            userDefaults.integer(forKey: Keys.gamesCount.rawValue)
         }
-        
-        set{
-            storage.set(newValue.correct, forKey: Keys.correct.rawValue)
-            storage.set(newValue.total, forKey: Keys.total.rawValue)
-            storage.set(newValue.date, forKey: Keys.date.rawValue)
+        set {
+            userDefaults.set(newValue, forKey: Keys.gamesCount.rawValue)
         }
     }
-  
     
-    func store(correct count: Int, total amount: Int) {
-       
-        
-        gamesCount += 1
-        
-        let newResult = GameResult(correct: count, total: amount, date: Date())
-        
-        if newResult.isBetterThan(bestGame) {
-            bestGame = newResult
+    internal var bestGame: GameResult {
+        get {
+            guard let data = userDefaults.data(forKey: Keys.bestGame.rawValue),
+                  let record = try? JSONDecoder().decode(GameResult.self, from: data) else {
+                return .init(correct: 0, total: 0, date: Date())
+            }
+            
+            return record
         }
-        
-       
+        set {
+            guard let data = try? JSONEncoder().encode(newValue) else {
+                print("Невозможно сохранить результат")
+                return
+            }
+            
+            userDefaults.set(data, forKey: Keys.bestGame.rawValue)
+            
+        }
     }
-  
-
+    
+    private var total: Int {
+        get {
+            userDefaults.integer(forKey: Keys.total.rawValue)
+        }
+        set {
+            userDefaults.set(newValue, forKey: Keys.total.rawValue)
+        }
+    }
+    
+    internal var totalAccuracy: Double {
+        guard total > 0 else { return 0.0 }
+        return Double(correct) / Double(total) * 100
+    }
+    
+    func store(payload gameResult: GameResult) {
+        self.correct += gameResult.correct
+        self.total += gameResult.total
+        self.gamesCount += 1
+        
+        if gameResult.isBetterThan(self.bestGame) {
+            self.bestGame = gameResult
+        }
+    }
 }

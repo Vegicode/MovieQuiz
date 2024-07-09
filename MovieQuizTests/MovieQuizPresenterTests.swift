@@ -10,8 +10,15 @@ import XCTest
 
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
+    func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) { }
+    
+   
+    
+    
+    
+    
+    
     func show(quiz step: QuizStepViewModel) { }
-    func show(quiz result: QuizResultsViewModel) { }
     func highlightImageBorder(isCorrectAnswer: Bool) { }
     func noBorder() { }
     func showLoadingIndicator() { }

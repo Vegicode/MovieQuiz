@@ -5,4 +5,9 @@
 //  Created by Mac on 09.07.2024.
 //
 
-import Foundation
+import UIKit
+
+protocol AlertPresenterDelegate: AnyObject {
+    func startNewGame()
+    func sendAlert(alert: UIAlertController)
+}
