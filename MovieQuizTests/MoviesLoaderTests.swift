@@ -62,7 +62,7 @@ class MoivesLoaderTests: XCTestCase {
     
     func testSuccessLoading() throws {
         
-        let stubNetworkClient = StubNetworkClient(emulateError: true)
+        let stubNetworkClient = StubNetworkClient(emulateError: false)
         let loader = MoviesLoader(networkClient: stubNetworkClient)
         
         let expectation = expectation(description: "Loading expectation")
